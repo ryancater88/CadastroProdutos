@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/addons/cleave-phone.br.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.2.0/imask.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="main.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Cadastro</title>
+</head>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Hellen e Ryan</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="javascript:void(0);" onclick="mostrarCadastro()">Cadastrar</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="javascript:void(0);" onclick="mostrarPresentes()">Ver Presentes</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+<body>
+    <div class="container mt-5" id="cadastro-container">
+        <h2>Cadastro de Produto para Lista</h2>
+            <div class="form-group" id="nome-div">
+               <label for="nome">Nome do Item:</label>
+				<input  type="text" class="campovermelho" id="nome" name="nome" required maxlength="50"  tabindex="1">
+            </div>
+			<div class="form-group" id="link-div">
+				<label for="nome">Link:</label>
+				 <input   type="text"  id="link" name="link" required minlength="10" tabindex="2">
+			 </div>
+			 <div class="form-group" id="linkimg-div">
+				<label for="nome">Link Imagem:</label>
+				 <input   type="text"  id="linkimg" name="linkimg" required  minlength="10" tabindex="3">
+			 </div>
+            <div class="form-group">
+                <button class="submit-button percorrer" id="submit-button" type="submit" tabindex="4">Concluir</button>
+        </div>
+    </div>
+	
+			<!-- overlay para bloquear os elementos atrás da camada principal -->
+			<div id="overlay"></div>
+
+			<!-- Carregamento-->
+			<div class="sk-chase" id="loading">
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+			  </div>
+			  
+			  <div class="container mt-5" id="presentes-container" style="display:none;">
+				<h2>Lista de Presentes</h2>
+				<ul class="list-group">
+					<!-- Exemplo de item da lista -->
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						Nome do Presente 1
+						<span class="badge bg-primary">Nome da Pessoa 1</span>
+					</li>
+		
+					<!-- Outros itens da lista -->
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						Nome do Presente 2
+						<span class="badge bg-primary">Nome da Pessoa 2</span>
+					</li>
+					<!-- Adicione mais itens conforme necessário -->
+				</ul>
+			</div>
+	<script src="function.js"></script>
+    <script src="main.js"> </script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
