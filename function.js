@@ -79,6 +79,7 @@ function mostrarPresentes() {
 }
 
 function cadastrarProduto(){
+    loading('exibir')
     var nomeProduto = input[0].value;
     var link = input[1].value;
     var img = input[2].value;
@@ -88,21 +89,54 @@ function cadastrarProduto(){
         "Descricao":nomeProduto,
         "Link":link,
         "Linkimg":img,
-        "Situacao":0
+        "Situacao":1
     }
+    var dadosRecebidos = null
 
-    console.log(body)
     const configuracao = {
         method: 'POST', // Método HTTP
-        headers: {
-          'Content-Type': 'application/json' // Tipo de conteúdo sendo enviado (JSON neste caso)
-          // Adicione outros cabeçalhos conforme necessário
-        },
         body: JSON.stringify(body) // Converte o objeto JavaScript para uma string JSON
       };
     fetch(apiUrl,configuracao)
+    .then(response => {
+        // Verificando se a requisição foi bem-sucedida (código de status 2xx)
+        if (!response.ok) {
+          throw new Error(`Erro na requisição: ${response.status}`);
+        }
+        
+        // Convertendo a resposta para JSON
+        return response.json();
+      })
+      .then(data => {
+        if(data.Status == 200){
+            limparInputs();
+            loading('ocultar');
+        }
+       ;
+      })
+      .catch(error => {
+        // Lidando com erros durante a requisição
+        console.error('Erro durante a requisição:', error);
+      });
+        
+}
 
+function loading(acao){
+var displayOpt = null
+    if(acao == 'exibir'){
+    displayOpt = 'flex'
+    }
+    else{
+    displayOpt = 'none'
+    };
+
+    document.getElementById('loading').style.display = displayOpt;
+    document.getElementById('overlay').style.display = displayOpt;
+}
+
+function limparInputs(){
+    //Limpando os campos se o Status for positivo
     for(i=0; i < input.length; i++){
         input[i].value = ''
     }
-}
+};
