@@ -111,6 +111,11 @@ function cadastrarProduto(){
         if(data.Status == 200){
             limparInputs();
             loading('ocultar');
+            mostrarModal('Cadastro Realizado com Sucesso', 'Seu cadastro foi realizado com sucesso!');
+        }
+        else{
+            loading('ocultar');
+            mostrarModal('Erro no Cadastro', data.Mensagem);
         }
        ;
       })
@@ -140,3 +145,14 @@ function limparInputs(){
         input[i].value = ''
     }
 };
+
+function mostrarModal(titulo, mensagem) {
+    var modal = new bootstrap.Modal(document.getElementById('universalModal'));
+    
+    // Atualiza o título e o corpo do modal
+    document.getElementById('universalModalLabel').textContent = titulo;
+    document.getElementById('universalModalBody').textContent = mensagem;
+  
+    // Exibe o modal
+    modal.show();
+  }

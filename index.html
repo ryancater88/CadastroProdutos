@@ -50,8 +50,23 @@
                 <button class="submit-button percorrer" id="submit-button" type="submit" tabindex="4">Concluir</button>
         </div>
     </div>
-	
-			<!-- overlay para bloquear os elementos atrás da camada principal -->
+	<div class="modal fade" id="universalModal" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="universalModalLabel">Mensagem</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="universalModalBody">
+			<!-- Conteúdo do modal será atualizado aqui -->
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+		</div>
+	</div>
+  			<!-- overlay para bloquear os elementos atrás da camada principal -->
 			<div id="overlay"></div>
 
 			<!-- Carregamento-->
