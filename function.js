@@ -84,7 +84,7 @@ function cadastrarProduto(){
     var link = input[1].value;
     var img = input[2].value;
     var situacao = 0;
-    var apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec' + new Date().getTime();
+    var apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?' + new Date().getTime();
     var body = {
         "Descricao":nomeProduto,
         "Link":link,
@@ -121,6 +121,8 @@ function cadastrarProduto(){
       })
       .catch(error => {
         // Lidando com erros durante a requisição
+        loading('ocultar');
+        mostrarModal('Erro', 'Servidor Indisponível')
         console.error('Erro durante a requisição:', error);
       });
         
