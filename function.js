@@ -89,7 +89,7 @@ function cadastrarProduto(){
         "Descricao":nomeProduto,
         "Link":link,
         "Linkimg":img,
-        "Situacao":1
+        "Situacao":0
     }
     var dadosRecebidos = null
 
