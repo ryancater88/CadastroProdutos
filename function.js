@@ -16,8 +16,12 @@ function verificaCampoObrigatorio(evento) {
 
             //se sim, verificar se o valor do campo foi preenchido. Se não foi preenchido indica o campo como obrigatório
             if(campoValor == ''){
+                if(document.querySelectorAll('.mensagemVermelha')[i]){
+                    document.querySelectorAll('.mensagemVermelha')[i].remove();
+                }
+               
+                document.querySelectorAll('input')[i].style="border: 1px solid #ccc";
                 document.querySelectorAll('input')[i].style="border: 1px solid red";
-
                 var mensagemVermelha = document.createElement('p');
                     mensagemVermelha.classList.add('mensagemVermelha')
                     mensagemVermelha.id = `id${i}`
@@ -79,19 +83,19 @@ function mostrarPresentes() {
 }
 
 function cadastrarProduto(){
-    loading('exibir')
+    loading('exibir');
     var nomeProduto = input[0].value;
     var link = input[1].value;
     var img = input[2].value;
     var situacao = 0;
-    var apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?' + new Date().getTime();
+    var apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=cadastro&' + new Date().getTime();
     var body = {
         "Descricao":nomeProduto,
         "Link":link,
         "Linkimg":img,
         "Situacao":0
     }
-    var dadosRecebidos = null
+    var dadosRecebidos = null;
 
     const configuracao = {
         method: 'POST', // Método HTTP
@@ -157,4 +161,4 @@ function mostrarModal(titulo, mensagem) {
   
     // Exibe o modal
     modal.show();
-  }
+  };
