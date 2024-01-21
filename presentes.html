@@ -32,32 +32,16 @@
 	</nav>
 </header>
 <body>
-<div id="overlay"></div>
-<div class="sk-chase" id="loading">
-	<div class="sk-chase-dot"></div>
-	<div class="sk-chase-dot"></div>
-	<div class="sk-chase-dot"></div>
-	<div class="sk-chase-dot"></div>
-	<div class="sk-chase-dot"></div>
-	<div class="sk-chase-dot"></div>
-</div>	  
-    <div class="container mt-5" id="cadastro-container">
-        <h2>Cadastro de Produto para Lista</h2>
-            <div class="form-group" id="nome-div">
-               <label for="nome">Nome do Item:</label>
-				<input  type="text" class="campovermelho" id="nome" name="nome" required maxlength="50"  tabindex="1">
-            </div>
-			<div class="form-group" id="link-div">
-				<label for="nome">Link:</label>
-				 <input   type="text"  id="link" name="link" required minlength="10" tabindex="2">
-			 </div>
-			 <div class="form-group" id="linkimg-div">
-				<label for="nome">Link Imagem:</label>
-				 <input   type="text"  id="linkimg" name="linkimg" required  minlength="10" tabindex="3">
-			 </div>
-            <div class="form-group">
-                <button class="submit-button percorrer" id="submit-button" type="submit" tabindex="4">Concluir</button>
-        </div>
+    <div class="container mt-5" id="presentes-container" style="display: none;">
+        <h2>Lista de Presentes</h2>
+         <div class="list-group" id="listapresente">
+            <!--<li class="list-group-item" id="1">Maquina de Lavar
+            	<button class="item-button">Editar</button>
+            </li>
+			<li class="list-group-item" id="2">Fogão
+            	<button class="item-button">Editar</button>
+            </li>
+         </div>
     </div>
 	<div class="modal fade" id="universalModal" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -66,14 +50,28 @@
 			<h5 class="modal-title" id="universalModalLabel">Mensagem</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body" id="universalModalBody">
+			<div class="modal-body" id="universalModalBody">-->
+
 			<!-- Conteúdo do modal será atualizado aqui -->
 			</div>
 			<div class="modal-footer">
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 			</div>
 		</div>
-	<script src="cadastros.js"></script>
+		
+  			<!-- overlay para bloquear os elementos atrás da camada principal -->
+			<div id="overlay"></div>
+
+			<!-- Carregamento-->
+			<div class="sk-chase" id="loading">
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+			  </div>
+	<script src="presentes.js"></script>
     <script src="main.js"> </script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

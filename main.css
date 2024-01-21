@@ -9,9 +9,8 @@ body {
     max-width: 500px;
     margin: 0 auto;
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     padding: 50px;
     background-color: #f0f0f0;
     border-radius: 5px;
@@ -151,13 +150,15 @@ transition: background-color 0.3s ease;
 }
 /* Adiciona efeito de transição para os botões */
 .submit-button,
-.botao-ok {
+.botao-ok,
+.item-button {
 transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Efeito quando o botão é pressionado */
 .submit-button:active,
-.botao-ok:active {
+.botao-ok:active,
+.item-button:active {
 background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 }
 
@@ -182,4 +183,30 @@ left: 71%;
 font-size: small;
 position:absolute;
 justify-content: flex-end;
+}
+
+
+  #presentes-container .list-group-item {
+    
+      margin-bottom: 10px;
+      border: 1px solid #d5d5d5;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: white;
+      display: flex;
+      /* align-items: center; */
+      flex-direction: row;
+      justify-content: space-between;
+      font-family: system-ui;
+  
+}
+
+.item-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  
 }

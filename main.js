@@ -1,10 +1,6 @@
+var input = document.querySelectorAll('input');
 
-//Event listeners
-
-/*Botão Concluir*/
-document.getElementById('submit-button').addEventListener('click', verificaCampoObrigatorio)
-
-/*Click em qualquer input*/
+/*Digitar em qualquer input*/
 for(let i = 0; i < input.length; i++){
 let idCampo = input[i].id
 input[i].addEventListener('input', () => {tirarMensagemVermelha(idCampo)})
@@ -23,4 +19,3 @@ for(let i = 0; i < input.length; i++){
     
     input[i].addEventListener('keydown', (e) => {teclaPressionada(e, idCampo)})
     }
-    

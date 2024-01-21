@@ -1,7 +1,10 @@
-var input = document.querySelectorAll('input');
+//Event listeners
+
+/*Botão Concluir*/
+document.getElementById('submit-button').addEventListener('click', verificaCampoObrigatorio)
 
 function verificaCampoObrigatorio(evento) {
-    var contadorCamposEmBranco = 0;
+
     //Percorrer os campos de input
     for(let i = 0; i < input.length; i++){
 
@@ -9,19 +12,20 @@ function verificaCampoObrigatorio(evento) {
         var campo = document.querySelectorAll('input')[i];
         var obrigatorio = campo.required;
         var campoValor = campo.value;
+        var campoStyle = campo.style
         var idDiv = campo.parentNode.id;
-       
+        var contadorCamposEmBranco = 0
 
         if(obrigatorio == true){
-
-            //se sim, verificar se o valor do campo foi preenchido. Se não foi preenchido indica o campo como obrigatório
             if(campoValor == ''){
-                if(document.querySelectorAll('.mensagemVermelha')[i]){
-                    document.querySelectorAll('.mensagemVermelha')[i].remove();
-                }
-               
-                document.querySelectorAll('input')[i].style="border: 1px solid #ccc";
-                document.querySelectorAll('input')[i].style="border: 1px solid red";
+                contadorCamposEmBranco = contadorCamposEmBranco + 1;
+            }
+            
+            //se sim, verificar se o valor do campo foi preenchido. Se não foi preenchido indica o campo como obrigatório
+            if(campoValor == '' && campoStyle.border != '1px solid red'){
+                
+                campo.style="border: 1px solid #ccc";
+                campo.style="border: 1px solid red";
                 var mensagemVermelha = document.createElement('p');
                     mensagemVermelha.classList.add('mensagemVermelha')
                     mensagemVermelha.id = `id${i}`
@@ -29,7 +33,6 @@ function verificaCampoObrigatorio(evento) {
                     mensagemVermelha.textContent = 'Obrigatório*'
 
                 document.getElementById(idDiv).appendChild(mensagemVermelha);
-                contadorCamposEmBranco = contadorCamposEmBranco + 1;
            } 
            
         }
@@ -70,16 +73,6 @@ function teclaPressionada(e, idCampo) {
         proximoCampo.focus()
     }
 
-}
-
-function mostrarCadastro() {
-    document.getElementById('cadastro-container').style.display = 'block';
-    document.getElementById('presentes-container').style.display = 'none';
-}
-
-function mostrarPresentes() {
-    document.getElementById('cadastro-container').style.display = 'none';
-    document.getElementById('presentes-container').style.display = 'block';
 }
 
 function cadastrarProduto(){
@@ -132,33 +125,39 @@ function cadastrarProduto(){
         
 }
 
+
 function loading(acao){
-var displayOpt = null
-    if(acao == 'exibir'){
-    displayOpt = 'flex'
-    }
-    else{
-    displayOpt = 'none'
-    };
-
-    document.getElementById('loading').style.display = displayOpt;
-    document.getElementById('overlay').style.display = displayOpt;
-}
-
-function limparInputs(){
-    //Limpando os campos se o Status for positivo
-    for(i=0; i < input.length; i++){
-        input[i].value = ''
-    }
-};
-
-function mostrarModal(titulo, mensagem) {
-    var modal = new bootstrap.Modal(document.getElementById('universalModal'));
+    var displayOpt = null
+        if(acao == 'exibir'){
+        displayOpt = 'flex'
+        }
+        else{
+        displayOpt = 'none'
+        };
     
-    // Atualiza o título e o corpo do modal
-    document.getElementById('universalModalLabel').textContent = titulo;
-    document.getElementById('universalModalBody').textContent = mensagem;
-  
-    // Exibe o modal
-    modal.show();
-  };
+        document.getElementById('loading').style.display = displayOpt;
+        document.getElementById('overlay').style.display = displayOpt;
+    }
+    
+    function limparInputs(){
+        //Limpando os campos se o Status for positivo
+        for(i=0; i < input.length; i++){
+            input[i].value = ''
+        }
+    };
+    
+    function mostrarModal(titulo, mensagem) {
+        var modal = new bootstrap.Modal(document.getElementById('universalModal'));
+        
+        // Atualiza o título e o corpo do modal
+        document.getElementById('universalModalLabel').textContent = titulo;
+        document.getElementById('universalModalBody').textContent = mensagem;
+      
+        // Exibe o modal
+        modal.show();
+      };
+
+    function limparModal(){
+      //limpar dados de modal anterior
+      document.querySelector('#universalModalBody').childNodes[3].remove()
+};
