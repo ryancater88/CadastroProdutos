@@ -68,6 +68,7 @@ function contrutorListaPresente(produto){
         buttonEditar.id = id;
         buttonEditar.className = 'item-button';
         buttonEditar.textContent = 'Editar';
+        buttonEditar.addEventListener('click', () => {buscarById(item.id)});
 
     var div = document.getElementById('listapresente');
 
@@ -78,53 +79,206 @@ function contrutorListaPresente(produto){
     //mostra o container de itens:
 
     document.getElementById('presentes-container').removeAttribute('style')
+    setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50)
+    
 
 }
 
-//Empregando função aos botões de editar
+// Ao clicar em editar, essa função é chamada
+let itemEscolhido = []
 
-let itemBut = document.querySelectorAll('.item-button')
+function buscarById(id){
+  loading('exibir');
+  const apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscarbyid&' + new Date().getTime();
+  const body = {
+                "Id":id
+              };
+  const configuracao = {
+    method: 'POST', // Método HTTP
+    body: JSON.stringify(body) // Converte o objeto JavaScript para uma string JSON
+  };
 
-itemBut.forEach(item => {item.addEventListener('click', () => {})})
+  fetch(apiUrl, configuracao)
+    .then(response => {
+      if (!response.ok) {
+       loading('Ocultar');
+       mostrarModal('Erro', 'Erro na requisição');
+        throw new Error(`Erro na requisição: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      mostrarModalDados('Produto', data)
+      loading('ocultar')
+    })
+    .catch(error => {
+      console.error('Erro durante a requisição:', error);
+      loading('ocultar');
+      // Mostrar um modal de erro se necessário
+    });
+
+}
 
 //Construindo modal de dados
 
 function mostrarModalDados(titulo, dados) {
-    var modal = new bootstrap.Modal(document.getElementById('universalModal'));
+    const modal = new bootstrap.Modal(document.getElementById('universalModal'));
 
-   
+    const convidado = dados.Convidado;
+    const data = dados.Datahora;
+    const descricao = dados.Descricao;
+    const email = dados.Email;
+    const id = dados.Id;
+    const link = dados.Link;
+    const linkimg = dados.Linkimg;
+    const situacao = dados.Situacao;
+
+    if(document.querySelector('.produto-modal')){limparModal()};
     
     // Atualiza o título e o corpo do modal
     document.getElementById('universalModalLabel').textContent = titulo;
    
      var dadosModal = document.getElementById('universalModalBody');
-
+//------------------------------Div da lista de campos----------------------------------
      var divProdutosList = document.createElement('div')
-        divProdutosList.className = 'produto-list'
+        divProdutosList.className = 'produto-modal'
    
-
+//------------------------------Campo Nome do Produto----------------------------------
      var divProduto = document.createElement('div')
-        divProduto.className = 'produto'
+        divProduto.id = 'nomeproduto'
         
      var labelProduto = document.createElement('label')
-        labelProduto.textContent = "Produto";
-        labelProduto.setAttribute('for', 'produto');
+        labelProduto.textContent = "Nome do Produto:";
+        labelProduto.setAttribute('for', 'inputproduto');
+        labelProduto.className = 'produto-modal-label'
         
      var inputProduto = document.createElement('input');
-        inputProduto.id = 1;
-        inputProduto.name = 'Produto'
+        inputProduto.id = 'inputproduto';
+        inputProduto.name = 'Produto';
+        inputProduto.required = true;
+        inputProduto.className = 'produto-modal-input';
+        inputProduto.setAttribute('maxlength', 50)
+        if(descricao) inputProduto.value = descricao;
 
-     divProduto.append(labelProduto, inputProduto);
+        divProduto.append(labelProduto, inputProduto);
+        divProdutosList.appendChild(divProduto);
+//------------------------------Campo Link----------------------------------
 
-     divProdutosList.appendChild(divProduto);
+      var divLink = document.createElement('div')
+       divLink.id = 'link'
+
+      var labelLink = document.createElement('label')
+        labelLink.textContent = "Link:";
+        labelLink.setAttribute('for', 'inputLink');
+        labelLink.className = 'produto-modal-label'
+
+      var inputLink = document.createElement('input');
+        inputLink.id = 'inputLink';
+        inputLink.name = 'Link';
+        inputLink.required = true;
+        inputLink.className = 'produto-modal-input';
+        inputLink.setAttribute('maxlength', 1000)
+       if(link) inputLink.value = link;
+
+       divLink.append(labelLink, inputLink);
+       divProdutosList.appendChild(divLink);
+
+//------------------------------Campo Linkimg----------------------------------
     
+      var divLinkimg = document.createElement('div')
+       divLinkimg.id = 'Linkimg'
+
+      var labelLinkimg = document.createElement('label')
+        labelLinkimg.textContent = "Link da Imagem:";
+        labelLinkimg.setAttribute('for', 'inputLinkimg');
+        labelLinkimg.className = 'produto-modal-label'
+
+      var inputLinkimg = document.createElement('input');
+        inputLinkimg.id = 'inputLinkimg';
+        inputLinkimg.name = 'Linkimg';
+        inputLinkimg.required = true;
+        inputLinkimg.className = 'produto-modal-input';
+        inputLinkimg.setAttribute('maxlength', 1000)
+       if(linkimg) inputLinkimg.value = linkimg;
+
+       divLinkimg.append(labelLinkimg, inputLinkimg);
+       divProdutosList.appendChild(divLinkimg);
+
+
+//------------------------------Campo Convidado----------------------------------
+     var divConvidado = document.createElement('div')
+       divConvidado.id = 'Convidado'
+
+      var labelConvidado = document.createElement('label')
+        labelConvidado.textContent = "Convidado:";
+        labelConvidado.setAttribute('for', 'inputConvidado');
+        labelConvidado.className = 'produto-modal-label'
+
+      var inputConvidado = document.createElement('input');
+        inputConvidado.id = 'inputConvidado';
+        inputConvidado.name = 'Convidado';
+        inputConvidado.className = 'produto-modal-input';
+        inputConvidado.setAttribute('maxlength', 50)
+       if(convidado) inputConvidado.value = convidado;
+
+       divConvidado.append(labelConvidado, inputConvidado);
+       divProdutosList.appendChild(divConvidado);
+
+//------------------------------Campo Email----------------------------------
+      var divEmail = document.createElement('div')
+       divEmail.id = 'Email'
+
+      var labelEmail = document.createElement('label')
+        labelEmail.textContent = "Email:";
+        labelEmail.setAttribute('for', 'inputEmail');
+        labelEmail.className = 'produto-modal-label'
+
+      var inputEmail = document.createElement('input');
+        inputEmail.id = 'inputEmail';
+        inputEmail.name = 'Email';
+        inputEmail.className = 'produto-modal-input';
+        inputEmail.setAttribute('maxlength', 50)
+       if(email) inputEmail.value = email;
+
+       divEmail.append(labelEmail, inputEmail);
+       divProdutosList.appendChild(divEmail);
+
+//------------------------------Campo Situacao----------------------------------
+      var divSituacao = document.createElement('div')
+       divSituacao.id = 'Situacao'
+
+      var labelSituacao = document.createElement('label')
+        labelSituacao.textContent = "Situacao:";
+        labelSituacao.setAttribute('for', 'inputSituacao');
+        labelSituacao.className = 'produto-modal-label'
+
+      var selectSituacao = document.createElement('select');
+        selectSituacao.id = 'inputSituacao';
+        selectSituacao.op
+      
+      var opt1 = document.createElement('option');
+        opt1.value = 1;
+        opt1.textContent = 'Reservado';
+      
+      var opt2 = document.createElement('option')
+        opt2.value = 0;
+        opt2.textContent = 'Não-reservado';
+      
+        selectSituacao.append(opt1, opt2);
+        selectSituacao.value = situacao
+
+
+       divSituacao.append(labelSituacao, selectSituacao);
+       divProdutosList.appendChild(divSituacao);
+
+//------------------------------Criando modal----------------------------------
+
+     
      dadosModal.appendChild(divProdutosList);
+     document.querySelector('#modal-salvar').removeAttribute('hidden')
   
     // Exibe o modal
     modal.show();
-     //Definindo Função para o button fechar
-     document.querySelector('.btn-secondary').addEventListener('click', limparModal);
-
   };
 
   function loading(acao){
@@ -153,7 +307,8 @@ function mostrarModalDados(titulo, dados) {
         // Atualiza o título e o corpo do modal
         document.getElementById('universalModalLabel').textContent = titulo;
         document.getElementById('universalModalBody').textContent = mensagem;
-      
+        document.querySelector('#modal-salvar').setAttribute('hidden');
+
         // Exibe o modal
         modal.show();
       };

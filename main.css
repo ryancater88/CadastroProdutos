@@ -1,28 +1,47 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #c9c9c9;
+    background-color: #bdbaba;
     background-size: cover; /* Para cobrir toda a tela */
     background-repeat: no-repeat;
+    
+}
+.body-lista{
+  margin: 0 auto;
+  position: absolute;
+  width: 50%;
+  top: 495px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 26px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  min-width: 337px;
+  max-width: 500px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-.container {
-    max-width: 500px;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    padding: 50px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: -1
+.body-cadastro{
+  margin: 0 auto;
+  position: absolute;
+  width: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 26px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  max-width: 450px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
-h2 {
-  font-size: x-large;
-  font-weight: bold;
-  padding-bottom: 40px;
-
+.show-container {
+  opacity: 1;
 }
 
 .form-group {
@@ -81,7 +100,7 @@ input[readonly] {
 .sk-chase {
   width: 50px;
   height: 50px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -175,32 +194,32 @@ z-index: 1;
 }
 
 .mensagemVermelha{
-color: red;
-padding: 0;
-margin: 0;
-display: flex;
-left: 71%;
-font-size: small;
-position:absolute;
-justify-content: flex-end;
+  color: red;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  left: 71%;
+  font-size: small;
+  position:absolute;
+  justify-content: flex-end;
 }
 
-
-  #presentes-container .list-group-item {
-    
-      margin-bottom: 10px;
-      border: 1px solid #d5d5d5;
-      padding: 10px;
-      border-radius: 10px;
-      background-color: white;
-      display: flex;
-      /* align-items: center; */
-      flex-direction: row;
-      justify-content: space-between;
-      font-family: system-ui;
+#presentes-container .list-group-item {
   
+  margin-bottom: 10px;
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: system-ui;
+    font-size: 85%;
+    
 }
-
+  
 .item-button {
   background-color: #007bff;
   color: #fff;
@@ -209,4 +228,41 @@ justify-content: flex-end;
   border-radius: 6px;
   cursor: pointer;
   
+}
+
+.produto-modal{
+  font-size: medium;
+    font-weight: bold;
+    font-style: oblique;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.produto-modal-input{
+  font-size: small;
+  width: 100%;
+  margin-bottom: 7px;
+}
+
+.produto-modal-label{
+  margin-bottom: 6px;
+}
+
+.container-header{
+  font-size: large;
+  font-weight: bold;
+  padding-bottom: 40px;
+}
+
+#Situacao{
+  margin-top: 10px;
+}
+
+#inputSituacao{
+  margin-left: 10px;
 }

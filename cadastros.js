@@ -1,5 +1,8 @@
 //Event listeners
-
+document.addEventListener("DOMContentLoaded", function () {
+    var presentesContainer = document.querySelector(".body-cadastro");
+    presentesContainer.classList.add("show-container");
+  });
 /*Botão Concluir*/
 document.getElementById('submit-button').addEventListener('click', verificaCampoObrigatorio)
 
@@ -87,13 +90,15 @@ function cadastrarProduto(){
         "Link":link,
         "Linkimg":img,
         "Situacao":0
-    }
+    };
+
     var dadosRecebidos = null;
 
     const configuracao = {
         method: 'POST', // Método HTTP
         body: JSON.stringify(body) // Converte o objeto JavaScript para uma string JSON
       };
+      
     fetch(apiUrl,configuracao)
     .then(response => {
         // Verificando se a requisição foi bem-sucedida (código de status 2xx)
