@@ -266,3 +266,36 @@ z-index: 1;
 #inputSituacao{
   margin-left: 10px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background-color: #373737e6;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination button:active{
+  background-color: rgb(29, 29, 29);
+  
+  }
+
+.current-page {
+  font-weight: bold;
+  padding: 10px;
+}
+
+.invisivel{
+  position: relative;
+  top:100%;
+  margin-top: 884px;
+}

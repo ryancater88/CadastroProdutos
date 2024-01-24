@@ -61,20 +61,16 @@
 				<div class="sk-chase-dot"></div>
 				<div class="sk-chase-dot"></div>
 			  </div>
-    <div class="body-lista" id="presentes-container" style="display: none;">
-		
-				<p class="container-header">Lista de Presentes<p>
-				<div class="list-group" id="listapresente">
-					<!--<li class="list-group-item" id="1">Maquina de Lavar
-						<button class="item-button">Editar</button>
-					</li>
-					<li class="list-group-item" id="2">Fogão
-						<button class="item-button">Editar</button>
-					</li>
-				</div>
-				</div>-->
-				</div>
-			</div>
+    <div class="body-lista" id="presentes-container" style="display: none;">		
+		<p class="container-header">Lista de Presentes<p>
+		<div class="list-group" id="listapresente"></div>
+		<div class="pagination">
+			<button id="prevBtn" onclick="atualizarPaginacao('anterior')">Anterior</button>
+			<span id="currentPage" class="current-page">Pagina: 0 de 0</span>
+			<button id="nextBtn" onclick="atualizarPaginacao('proxima')">Próximo</button>
+		</div>
+	</div>
+	<div class="invisivel"></div>
 	<script src="presentes.js"></script>
     <script src="main.js"> </script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

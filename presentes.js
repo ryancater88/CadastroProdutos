@@ -1,8 +1,9 @@
 
 //ao abrir a pagina
-let pagina = 1
+let paginaAtual = 1
+let paginasTotais = 0
 
-buscarListaDePresentes(pagina)
+buscarListaDePresentes(paginaAtual)
 
 
 // Função para buscar a lista de presentes ao abrir a página
@@ -11,6 +12,7 @@ let listaDePresentes = [];
 
 function buscarListaDePresentes(page) {
    loading('exibir');
+   
     var apiLink = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscar&' + new Date().getTime();
     var body = {
         'Page':`${page}`,
@@ -33,9 +35,15 @@ fetch(apiLink, configuracao)
       return response.json();
     })
     .then(data => {
+
       listaDePresentes = data;
-      listarItens(listaDePresentes);
-      loading('ocultar')
+      paginaAtual = data.PaginaAtual
+      paginasTotais = data.Totalpaginas
+      listarItens(listaDePresentes.Dados);
+      loading('ocultar');
+      atualizarPaginacao();
+(paginaAtual, paginasTotais);
+      
     })
     .catch(error => {
       console.error('Erro durante a requisição:', error);
@@ -46,18 +54,21 @@ fetch(apiLink, configuracao)
 function listarItens(item){
    item.forEach(elemento => {contrutorListaPresente(elemento)})
 
+
+
 }
 
 function contrutorListaPresente(produto){
  
-    const convidado = produto.Convidado;
-    const data = produto.Datahora;
-    const descricao = produto.Descricao;
-    const email = produto.Email;
-    const id = produto.Id;
-    const link = produto.Link;
-    const linkimg = produto.Linkimg;
-    const situacao = produto.Situacao;
+    const convidado =    produto.Convidado;
+    const data =     produto.Datahora;
+    const descricao =  produto.Descricao;
+    const email =     produto.Email;
+    const id =     produto.Id;
+    const link =    produto.Link;
+    const linkimg =     produto.Linkimg;
+    const situacao =     produto.Situacao;
+
 
     var item = document.createElement('li');
         item.className = 'list-group-item';
@@ -70,17 +81,16 @@ function contrutorListaPresente(produto){
         buttonEditar.textContent = 'Editar';
         buttonEditar.addEventListener('click', () => {buscarById(item.id)});
 
-    var div = document.getElementById('listapresente');
+    var div = document.getElementById('listapresente')
 
     item.appendChild(buttonEditar)
 
     div.append(item);
-   
+
     //mostra o container de itens:
 
-    document.getElementById('presentes-container').removeAttribute('style')
-    setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50)
-    
+    document.getElementById('presentes-container').removeAttribute('style');
+    setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50);
 
 }
 
@@ -317,3 +327,25 @@ function mostrarModalDados(titulo, dados) {
       //limpar dados de modal anterior
       document.querySelector('#universalModalBody').childNodes[3].remove()
 };
+
+function atualizarPaginacao(evento){
+  const textoColocar = `Pagina: ${paginaAtual} de ${paginasTotais}`
+  const container = document.querySelector('#presentes-container');
+  const listaItem = document.querySelectorAll('.list-group-item');
+
+  document.getElementById('currentPage').textContent = textoColocar
+
+  if(evento == 'proxima' && paginaAtual < paginasTotais){
+    container.style.display = 'none';
+    listaItem.forEach(item => {item.remove()})
+    paginaAtual = parseInt(paginaAtual) + 1;
+    buscarListaDePresentes(paginaAtual);
+  }
+  else if(evento == 'anterior' && paginaAtual > 1){
+    container.style.display = 'none';
+    listaItem.forEach(item => {item.remove()});
+    paginaAtual = parseInt(paginaAtual) - 1;
+    buscarListaDePresentes(paginaAtual);
+  }
+}
+
