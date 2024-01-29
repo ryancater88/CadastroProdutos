@@ -95,7 +95,7 @@ function contrutorListaPresente(produto){
 }
 
 // Ao clicar em editar, essa função é chamada
-let itemEscolhido = []
+let itemEscolhido = null
 
 function buscarById(id){
   loading('exibir');
@@ -118,7 +118,8 @@ function buscarById(id){
       return response.json();
     })
     .then(data => {
-      mostrarModalDados('Produto', data)
+      mostrarModalDados('Produto', data);
+      itemEscolhido = data
       loading('ocultar')
     })
     .catch(error => {
@@ -132,7 +133,8 @@ function buscarById(id){
 //Construindo modal de dados
 
 function mostrarModalDados(titulo, dados) {
-    const modal = new bootstrap.Modal(document.getElementById('universalModal'));
+    const modal = new bootstrap.Modal(document.getElementById('modalDados'));
+    limparModal();
 
     const convidado = dados.Convidado;
     const data = dados.Datahora;
@@ -143,12 +145,11 @@ function mostrarModalDados(titulo, dados) {
     const linkimg = dados.Linkimg;
     const situacao = dados.Situacao;
 
-    if(document.querySelector('.produto-modal')){limparModal()};
-    
+
     // Atualiza o título e o corpo do modal
-    document.getElementById('universalModalLabel').textContent = titulo;
+    document.getElementById('modalDadosLabel').textContent = titulo;
    
-     var dadosModal = document.getElementById('universalModalBody');
+     var dadosModal = document.getElementById('modalDadosBody');
 //------------------------------Div da lista de campos----------------------------------
      var divProdutosList = document.createElement('div')
         divProdutosList.className = 'produto-modal'
@@ -285,7 +286,6 @@ function mostrarModalDados(titulo, dados) {
 
      
      dadosModal.appendChild(divProdutosList);
-     document.querySelector('#modal-salvar').removeAttribute('hidden')
   
     // Exibe o modal
     modal.show();
@@ -317,16 +317,21 @@ function mostrarModalDados(titulo, dados) {
         // Atualiza o título e o corpo do modal
         document.getElementById('universalModalLabel').textContent = titulo;
         document.getElementById('universalModalBody').textContent = mensagem;
-        document.querySelector('#modal-salvar').setAttribute('hidden');
 
         // Exibe o modal
         modal.show();
       };
 
     function limparModal(){
-      //limpar dados de modal anterior
-      document.querySelector('#universalModalBody').childNodes[3].remove()
+      var dadosModal =  document.querySelector('#modalDadosBody').childNodes[3];
+
+      if(dadosModal){
+        dadosModal.remove()
+      }
+      
 };
+
+//------------------------------Paginação----------------------------------
 
 function atualizarPaginacao(evento){
   const textoColocar = `Pagina: ${paginaAtual} de ${paginasTotais}`
@@ -349,3 +354,80 @@ function atualizarPaginacao(evento){
   }
 }
 
+//------------------------------Função do botão salvar----------------------------------
+
+function alterarProduto(){
+  fecharModal();
+  loading('exibir');
+
+  
+  const id = itemEscolhido.Id
+  const descricao = document.querySelector('#inputproduto').value;
+  const link = document.querySelector('#inputLink').value;
+  const linkimg = document.querySelector('#inputLinkimg').value;
+  const convidado = document.querySelector('#inputConvidado').value;
+  const email = document.querySelector('#inputEmail').value;
+  const situacao = document.querySelector('#inputSituacao').value;
+
+
+if(id && descricao && link && linkimg){
+  
+  const endpoint = "https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=alterar&"+ new Date().getTime();
+
+  const body = {
+    "Id":id,
+    "Descricao":descricao,
+    "Link":link,
+    "Linkimg":linkimg,
+    "Situacao":situacao,
+    "Convidado":convidado,
+    "Email":email
+};
+
+  const configuracao =  {
+    method: 'POST', 
+    body: JSON.stringify(body)
+};
+
+fetch(endpoint, configuracao)
+    .then(response => {
+      if (!response.ok) {
+       loading('Ocultar');
+       mostrarModal('Erro', 'Erro na requisição');
+        throw new Error(`Erro na requisição: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      limparModal();
+      mostrarModal('Sucesso', "Alteração bem Sucedida;")
+      loading('ocultar')
+
+    })
+    .catch(error => {
+      console.error('Erro durante a requisição:', error);
+      loading('ocultar');
+      mostrarModal('Erro', 'Erro durante a requisição:')
+    });
+
+}
+else{
+  let campoBranco = []
+
+  if(id == ""){campoBranco.push("Id")};
+  if(descricao == ""){campoBranco.push("Descricão")};
+  if(link == ""){campoBranco.push("Link")};
+  if(linkimg == ""){campoBranco.push("Link Img")};
+
+  console.log(campoBranco)
+
+  mostrarModal('Erro', `Preencha os seguintes campos: ${campoBranco}`)
+  loading('ocultar');
+}
+
+}
+
+function fecharModal(){
+  const event = new Event('click')
+  document.querySelector('#dadosFechar').dispatchEvent(event)
+}

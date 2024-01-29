@@ -100,7 +100,7 @@ input[readonly] {
 .sk-chase {
   width: 50px;
   height: 50px;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -108,6 +108,7 @@ input[readonly] {
   display: none;
   text-align: center;
   line-height: 200px;
+  z-index: 11;
 }
 
 
@@ -184,13 +185,13 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 /* Estilo para a camada de fundo */
 #overlay {
 display: none;
-position:fixed;
+position:absolute;
 top: 0;
 left: 0;
 width: 100%;
 height: 100%;
 background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semitransparente */
-z-index: 1;
+z-index: 10;
 }
 
 .mensagemVermelha{
@@ -298,4 +299,12 @@ z-index: 1;
   position: relative;
   top:100%;
   margin-top: 884px;
+}
+
+.modal{
+  z-index: 2;
+}
+
+.modal-backdrop{
+  z-index: 1;
 }

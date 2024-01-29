@@ -50,6 +50,23 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="modalDados" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h5 class="modal-title" id="modalDadosLabel">Mensagem</h5>
+			<button type="button" id="dadosFechar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" id="modalDadosBody">
+			<!-- Conteúdo do modal será atualizado aqui -->
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="modal-cancelar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				<button type="button" id="modal-salvar" class="btn btn-primary" onclick="alterarProduto()">Salvar</button>
+			</div>
+			</div>
+		</div>
+	</div>
   			<!-- overlay para bloquear os elementos atrás da camada principal -->
 			<div id="overlay"></div>
 			<!-- Carregamento-->
