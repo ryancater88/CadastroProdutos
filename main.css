@@ -236,12 +236,39 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 .item-button {
   background-color: #007bff;
   color: #fff;
-  padding: 5px 10px;
+  padding:  2px 6px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 5px;
+  
+}
+
+.item-button-excluir {
+  background-color: #db0707;
+  color: #fff;
+  padding: 2px 6px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   
 }
+
+.item-button-excluir{
+  transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .item-button-excluir:active{
+      background-color: #7e0000; /* Nova cor quando o botão é pressionado */
+      
+  }
+
+.button-list-group{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 
 .produto-modal{
   font-size: medium;

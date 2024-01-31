@@ -64,7 +64,7 @@ function contrutorListaPresente(produto){
     const data =     produto.Datahora;
     const descricao =  produto.Descricao;
     const email =     produto.Email;
-    const id =     produto.Id;
+    let id =     produto.Id;
     const link =    produto.Link;
     const linkimg =     produto.Linkimg;
     const situacao =     produto.Situacao;
@@ -81,9 +81,21 @@ function contrutorListaPresente(produto){
         buttonEditar.textContent = 'Editar';
         buttonEditar.addEventListener('click', () => {buscarById(item.id)});
 
+     var buttonExcluir = document.createElement('button');
+         buttonExcluir.id = id;
+         buttonExcluir.className = 'item-button-excluir';
+         buttonExcluir.textContent = 'Excluir';
+         buttonExcluir.addEventListener('click',  () => {excluirProduto(id)})
+
+    var divButton = document.createElement('div')
+        divButton.className = 'button-list-group'
+
     var div = document.getElementById('listapresente')
 
-    item.appendChild(buttonEditar)
+    divButton.appendChild(buttonExcluir)
+    divButton.appendChild(buttonEditar)
+
+    item.appendChild(divButton)
 
     div.append(item);
 
@@ -282,14 +294,21 @@ function mostrarModalDados(titulo, dados) {
        divSituacao.append(labelSituacao, selectSituacao);
        divProdutosList.appendChild(divSituacao);
 
-//------------------------------Criando modal----------------------------------
-
-     
      dadosModal.appendChild(divProdutosList);
   
-    // Exibe o modal
     modal.show();
   };
+//---------------------------------------------------------------
+function limparModal(){
+  var dadosModal =  document.querySelector('#modalDadosBody').childNodes[3];
+
+  if(dadosModal){
+    dadosModal.remove()
+  }
+  
+};
+
+//---------------------------------------------------------------
 
   function loading(acao){
     var displayOpt = null
@@ -306,6 +325,8 @@ function mostrarModalDados(titulo, dados) {
         document.getElementById('overlay').style.display = displayOpt;
     }
     
+    //---------------------------------------------------------------
+
     function limparInputs(){
         //Limpando os campos se o Status for positivo
         for(i=0; i < input.length; i++){
@@ -314,49 +335,73 @@ function mostrarModalDados(titulo, dados) {
     };
     
     function mostrarModal(titulo, mensagem) {
-        var modal = new bootstrap.Modal(document.getElementById('universalModal'));
-        
-        // Atualiza o título e o corpo do modal
-        document.getElementById('universalModalLabel').textContent = titulo;
-        document.getElementById('universalModalBody').textContent = mensagem;
-
-        // Exibe o modal
-        modal.show();
-      };
-
-    function limparModal(){
-      var dadosModal =  document.querySelector('#modalDadosBody').childNodes[3];
-
-      if(dadosModal){
-        dadosModal.remove()
-      }
+      var modal = new bootstrap.Modal(document.getElementById('universalModal'));
       
-};
+      // Atualiza o título e o corpo do modal
+      document.getElementById('universalModalLabel').textContent = titulo;
+      document.getElementById('universalModalBody').textContent = mensagem;
+    
+      // Exibe o modal
+      modal.show();
+    };
+
+    function mostrarModalConfirmacaoExclusao() {
+      return new Promise((resolve) => {
+        var modal = new bootstrap.Modal(document.getElementById('modalConfirmacao'));
+    
+        document.getElementById('modalConfirmacaoLabel').textContent = 'Atenção!';
+        document.getElementById('modalConfirmacaoBody').textContent = 'Você realmente deseja excluir esse registro?';
+    
+        // Adicionar eventos para lidar com os botões "Confirmar" e "Cancelar"
+        var btnConfirmar = document.getElementById('modal-c-confirmar');
+        var btnCancelar = document.getElementById('modal-c-cancelar');
+    
+        btnConfirmar.addEventListener('click', function () {
+          modal.hide(); // Oculta o modal
+          resolve(true); // Resolve a Promise com true
+        });
+    
+        btnCancelar.addEventListener('click', function () {
+          modal.hide(); // Oculta o modal
+          resolve(false); // Resolve a Promise com false
+        });
+    
+        modal.show();
+      });
+    }
 
 //------------------------------Paginação----------------------------------
 
 function atualizarPaginacao(evento){
   const textoColocar = `Pagina: ${paginaAtual} de ${paginasTotais}`
-  const container = document.querySelector('#presentes-container');
-  const listaItem = document.querySelectorAll('.list-group-item');
 
   document.getElementById('currentPage').textContent = textoColocar
 
   if(evento == 'proxima' && paginaAtual < paginasTotais){
-    container.style.display = 'none';
-    listaItem.forEach(item => {item.remove()})
+
     paginaAtual = parseInt(paginaAtual) + 1;
+
+    limparListaPresentes();
     buscarListaDePresentes(paginaAtual);
     scrollParaOInicio();
   }
   else if(evento == 'anterior' && paginaAtual > 1){
-    container.style.display = 'none';
-    listaItem.forEach(item => {item.remove()});
+
     paginaAtual = parseInt(paginaAtual) - 1;
+    
+    limparListaPresentes();
     buscarListaDePresentes(paginaAtual);
     scrollParaOInicio();
   }
-}
+};
+
+function limparListaPresentes(){
+  const container = document.querySelector('#presentes-container');
+  const listaItem = document.querySelectorAll('.list-group-item');
+
+  container.style.display = 'none';
+  listaItem.forEach(item => {item.remove()});
+};
 
 //------------------------------Função do botão salvar----------------------------------
 
@@ -431,6 +476,51 @@ else{
 
 }
 
+function excluirProduto(id) {
+  mostrarModalConfirmacaoExclusao()
+    .then((confirmado) => {
+      if (confirmado) {
+        if (id) {
+          loading('exibir');
+          const endpoint = "https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=excluir&" + new Date().getTime();
+
+          const body = {
+            "Id": id,
+          };
+
+          const configuracao = {
+            method: 'POST',
+            body: JSON.stringify(body),
+          };
+
+          fetch(endpoint, configuracao)
+            .then(response => {
+              if (!response.ok) {
+                loading('Ocultar');
+                mostrarModal('Erro', 'Erro na requisição');
+                throw new Error(`Erro na requisição: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              mostrarModal('Sucesso', "Exclusão bem Sucedida")
+              loading('ocultar');
+            })
+            .catch(error => {
+              console.error('Erro durante a requisição:', error);
+              loading('ocultar');
+              mostrarModal('Erro', 'Erro durante a requisição')
+            });
+        } else {
+          mostrarModal('Erro', `Id não enviado na requisição`)
+          loading('ocultar');
+        }
+      } else {
+        loading('ocultar');
+      }
+    });
+}
+
 function fecharModal(){
   const event = new Event('click')
   document.querySelector('#dadosFechar').dispatchEvent(event)
@@ -441,3 +531,7 @@ function fecharModal(){
 function scrollParaOInicio(){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+//------------------------------Função do Botão de Fechar do Modal informativo-------------------------
+
+document.getElementById('modal-cancelar').addEventListener('click',  () => {limparListaPresentes();  buscarListaDePresentes(paginaAtual)})
