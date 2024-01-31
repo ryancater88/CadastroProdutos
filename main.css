@@ -3,15 +3,19 @@ body {
     background-color: #bdbaba;
     background-size: cover; /* Para cobrir toda a tela */
     background-repeat: no-repeat;
-    
+ 
 }
+.scroll-hide{
+  overflow: hidden;
+}
+
 .body-lista{
   margin: 0 auto;
+  margin-top: 10px;
   position: absolute;
   width: 50%;
-  top: 495px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%);
   padding: 26px;
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -21,6 +25,11 @@ body {
   max-width: 500px;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+}
+
+.navbar{
+  display: block;
+  z-index: 2;
 }
 
 .body-cadastro{
@@ -100,7 +109,7 @@ input[readonly] {
 .sk-chase {
   width: 50px;
   height: 50px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -184,14 +193,17 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 
 /* Estilo para a camada de fundo */
 #overlay {
-display: none;
-position:absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semitransparente */
-z-index: 10;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Cor escura do overlay */
+  justify-content: center;
+  align-items: center;
+  z-index: 1002;
+  
 }
 
 .mensagemVermelha{

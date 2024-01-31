@@ -295,9 +295,11 @@ function mostrarModalDados(titulo, dados) {
     var displayOpt = null
         if(acao == 'exibir'){
         displayOpt = 'flex'
+        document.querySelector('body').classList.add('scroll-hide')
         }
         else{
-        displayOpt = 'none'
+        displayOpt = 'none';
+        document.querySelector('body').classList.remove('scroll-hide')
         };
     
         document.getElementById('loading').style.display = displayOpt;
@@ -345,12 +347,14 @@ function atualizarPaginacao(evento){
     listaItem.forEach(item => {item.remove()})
     paginaAtual = parseInt(paginaAtual) + 1;
     buscarListaDePresentes(paginaAtual);
+    scrollParaOInicio();
   }
   else if(evento == 'anterior' && paginaAtual > 1){
     container.style.display = 'none';
     listaItem.forEach(item => {item.remove()});
     paginaAtual = parseInt(paginaAtual) - 1;
     buscarListaDePresentes(paginaAtual);
+    scrollParaOInicio();
   }
 }
 
@@ -430,4 +434,10 @@ else{
 function fecharModal(){
   const event = new Event('click')
   document.querySelector('#dadosFechar').dispatchEvent(event)
+}
+
+//----------------------------------------------------------------
+
+function scrollParaOInicio(){
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
