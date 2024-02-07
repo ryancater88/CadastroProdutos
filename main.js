@@ -19,3 +19,9 @@ for(let i = 0; i < input.length; i++){
     
     input[i].addEventListener('keydown', (e) => {teclaPressionada(e, idCampo)})
     }
+
+    /*Ocultar Cadastro ao sair da página*/
+
+    const buttonPresentes = document.querySelectorAll('nav-link');
+        buttonPresentes.forEach(item => {item.addEventListener('click', () => {document.querySelector('#cadastro-container').classList.remove('show-container')})});
+    

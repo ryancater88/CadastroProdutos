@@ -1,8 +1,6 @@
-//Event listeners
-document.addEventListener("DOMContentLoaded", function () {
-    var presentesContainer = document.querySelector(".body-cadastro");
-    presentesContainer.classList.add("show-container");
-  });
+//Mostrar o cadastro
+var presentesContainer = document.querySelector(".body-cadastro");
+  setTimeout(() => {presentesContainer.classList.add("show-container"), 50});
 /*Botão Concluir*/
 document.getElementById('submit-button').addEventListener('click', verificaCampoObrigatorio)
 
