@@ -10,22 +10,42 @@ body {
 }
 
 .body-lista{
-  margin: 0 auto;
-  margin-top: 10px;
-  position: absolute;
+    margin: 0 auto;
+    margin-top: 10px;
+    position: absolute;
+    width: 50%;
+    left: 50%;
+    transform: translate(-50%);
+    padding: 26px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: -1;
+    min-width: 337px;
+    max-width: 500px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    min-height: 666px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#qualLista {
+  border-radius: 5px;
+  height: 25px;
+  font-size: medium;
+  text-align: center;
+  color: #0e0e0ee6;
   width: 50%;
+  max-width: 148px;
+  bottom: 354px;
   left: 50%;
   transform: translate(-50%);
-  padding: 26px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: -1;
-  min-width: 337px;
-  max-width: 500px;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  position: fixed;
+  top: 8%;
 }
+
 
 .navbar{
   display: block;
@@ -220,7 +240,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 #presentes-container .list-group-item {
   
   margin-bottom: 10px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #979797;
     padding: 10px;
     border-radius: 10px;
     background-color: white;
@@ -297,6 +317,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   font-size: large;
   font-weight: bold;
   padding-bottom: 40px;
+  text-align: center;
 }
 
 #Situacao{
@@ -332,7 +353,15 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 .current-page {
   font-weight: bold;
   padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 87%;
 }
+
 
 .invisivel{
   position: relative;
@@ -347,3 +376,15 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 .modal-backdrop{
   z-index: 1;
 }
+
+.list-group{
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: var(--bs-list-group-border-radius);
+  min-height: 500px;
+  background-color: #e5e5e5;
+  border: 1px solid #4b4b4b;
+  padding: 13px;
+};

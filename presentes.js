@@ -2,18 +2,26 @@
 //ao abrir a pagina
 let paginaAtual = 1
 let paginasTotais = 0
+let lista = null
 
-buscarListaDePresentes(paginaAtual)
+setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50);
 
+const dropMenuOpt = document.querySelector('#qualLista');
+      dropMenuOpt.addEventListener('change', () => {
+        lista = dropMenuOpt.value; 
+        if(paginaAtual > 1)paginaAtual = 1;
+        buscarListaDePresentes(paginaAtual, dropMenuOpt.value); 
+        limparListaPresentes()
+      });
 
 // Função para buscar a lista de presentes ao abrir a página
 let listaDePresentes = [];
 
 
-function buscarListaDePresentes(page) {
+function buscarListaDePresentes(page, lista) {
    loading('exibir');
    
-    var apiLink = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscar&' + new Date().getTime();
+    var apiLink = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscar&local=${lista}&${new Date().getTime()}`
     var body = {
         'Page':`${page}`,
         'Pagelength':'10'
@@ -35,13 +43,23 @@ fetch(apiLink, configuracao)
       return response.json();
     })
     .then(data => {
-
-      listaDePresentes = data;
-      paginaAtual = data.PaginaAtual
-      paginasTotais = data.Totalpaginas
-      listarItens(listaDePresentes.Dados);
-      loading('ocultar');
-      atualizarPaginacao();
+      if(data.Status == 400){
+        loading('Ocultar');
+        mostrarModal('Erro', data.Mensagem)
+      }
+      else if(data.Dados == ''){
+        loading('Ocultar');
+        mostrarModal('Erro', 'Nenhum registro encontrado')
+      }
+      else{
+        listaDePresentes = data;
+        paginaAtual = data.PaginaAtual
+        paginasTotais = data.Totalpaginas
+        listarItens(listaDePresentes.Dados);
+        loading('ocultar');
+        atualizarPaginacao();
+      }
+      
 (paginaAtual, paginasTotais);
       
     })
@@ -100,18 +118,16 @@ function contrutorListaPresente(produto){
     div.append(item);
 
     //mostra o container de itens:
-
-    document.getElementById('presentes-container').removeAttribute('style');
     setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50);
 
-}
+};
 
 // Ao clicar em editar, essa função é chamada
 let itemEscolhido = null
 
 function buscarById(id){
   loading('exibir');
-  const apiUrl = 'https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscarbyid&' + new Date().getTime();
+  const apiUrl = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscarbyid&local=${lista}&${new Date().getTime()}`;
   const body = {
                 "Id":id
               };
@@ -382,7 +398,7 @@ function atualizarPaginacao(evento){
     paginaAtual = parseInt(paginaAtual) + 1;
 
     limparListaPresentes();
-    buscarListaDePresentes(paginaAtual);
+    buscarListaDePresentes(paginaAtual, lista);
     scrollParaOInicio();
   }
   else if(evento == 'anterior' && paginaAtual > 1){
@@ -390,7 +406,7 @@ function atualizarPaginacao(evento){
     paginaAtual = parseInt(paginaAtual) - 1;
     
     limparListaPresentes();
-    buscarListaDePresentes(paginaAtual);
+    buscarListaDePresentes(paginaAtual, lista);
     scrollParaOInicio();
   }
 };
@@ -399,7 +415,7 @@ function limparListaPresentes(){
   const container = document.querySelector('#presentes-container');
   const listaItem = document.querySelectorAll('.list-group-item');
 
-  container.style.display = 'none';
+  container.classList.remove('show-container')
   listaItem.forEach(item => {item.remove()});
 };
 
@@ -421,7 +437,7 @@ function alterarProduto(){
 
 if(id && descricao && link && linkimg){
   
-  const endpoint = "https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=alterar&"+ new Date().getTime();
+  const endpoint = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=alterar&local=${lista}&${new Date().getTime()}`
 
   const body = {
     "Id":id,
@@ -482,7 +498,7 @@ function excluirProduto(id) {
       if (confirmado) {
         if (id) {
           loading('exibir');
-          const endpoint = "https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=excluir&" + new Date().getTime();
+          const endpoint = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=excluir&local=${lista}&${new Date().getTime()}` + new Date().getTime();
 
           const body = {
             "Id": id,
@@ -534,4 +550,4 @@ function scrollParaOInicio(){
 
 //------------------------------Função do Botão de Fechar do Modal informativo-------------------------
 
-document.getElementById('modal-cancelar').addEventListener('click',  () => {limparListaPresentes();  buscarListaDePresentes(paginaAtual)})
+document.getElementById('modal-cancelar').addEventListener('click',  () => {limparListaPresentes();  buscarListaDePresentes(paginaAtual, lista)})

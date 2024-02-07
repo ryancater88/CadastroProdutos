@@ -12,27 +12,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Formulário de Cadastro</title>
 </head>
-<header>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html">Hellen e Ryan</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="index.html">Cadastrar</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="presentes.html">Ver Presentes</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
 <body>
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="index.html">Hellen e Ryan</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Cadastrar</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="presentes.html">Ver Presentes</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>		
 	<div class="modal fade" id="universalModal" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-  			<!-- overlay para bloquear os elementos atrás da camada principal -->
+			<!-- overlay para bloquear os elementos atrás da camada principal -->
 			<div id="overlay"></div>
 			<!-- Carregamento-->
 			<div class="sk-chase" id="loading">
@@ -94,19 +94,26 @@
 				<div class="sk-chase-dot"></div>
 				<div class="sk-chase-dot"></div>
 				<div class="sk-chase-dot"></div>
-			  </div>
-    <div class="body-lista" id="presentes-container" style="display: none;">		
-		<p class="container-header">Lista de Presentes<p>
-		<div class="list-group" id="listapresente"></div>
+			</div>
+	<div class="body-lista" id="presentes-container">		
+		<p class="container-header">Lista de Presentes </p>
+		<select id="qualLista" name="qualLista">
+			<option class="optLista" disabled selected hidden>Selecione</option>
+			<option class="optLista" value="1">Padrinhos</option>
+			<option class="optLista" value="2">Convidados</option>
+			<option class="optLista" value="3">Chá</option>
+			<option class="optLista" value="4">beta</option>
+		</select>
+		<div class="list-group" id="listapresente">
+		</div>
 		<div class="pagination">
 			<button id="prevBtn" onclick="atualizarPaginacao('anterior')">Anterior</button>
 			<span id="currentPage" class="current-page">Pagina: 0 de 0</span>
 			<button id="nextBtn" onclick="atualizarPaginacao('proxima')">Próximo</button>
 		</div>
 	</div>
-	<div class="invisivel"></div>
 	<script src="presentes.js"></script>
-    <script src="main.js"> </script>
+	<script src="main.js"> </script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
