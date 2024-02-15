@@ -45,7 +45,7 @@
         <p class="container-header">Cadastro de Produto para Lista<p>
             <div class="form-group" id="nome-div">
                <label for="nome">Nome do Item:</label>
-				<input  type="text" class="campovermelho" id="nome" name="nome" required maxlength="50"  tabindex="1">
+				<input  type="text" id="nome" name="nome" required maxlength="50"  tabindex="1">
             </div>
 			<div class="form-group" id="link-div">
 				<label for="nome">Link:</label>
@@ -55,8 +55,22 @@
 				<label for="nome">Link Imagem:</label>
 				 <input   type="text"  id="linkimg" name="linkimg" required  minlength="10" tabindex="3">
 			 </div>
+			 <div class="form-group" id="linkimg-div">
+				<label for="qtdMax">Quantidade Reservada:</label>
+				 <input   type="number"  id="qtdMax" name="qtdMax" required max="50" min="1" value="1" tabindex="4">
+			 </div>			
+			 <div class="form-group" id="local-div">
+				<label for="selectLista">Lista:</label>
+				<select name="Lista" id="selectLista" tabindex="5" required>
+					<option value="" class="optHide" hidden>Selecione uma opção</option>
+					<option value="1" class="optSelect">Padrinhos</option>
+					<option value="2" class="optSelect">Convidados</option>
+					<option value="3" class="optSelect">Chá de Casinha</option>
+					<option value="4" class="optSelect">Beta</option>
+				</select>
+			 </div>
             <div class="form-group">
-                <button class="submit-button percorrer" id="submit-button" type="submit" tabindex="4">Concluir</button>
+                <button class="submit-button percorrer" id="submit-button" type="submit" tabindex="5">Concluir</button>
         </div>
     </div>
 	<div class="modal fade" id="universalModal" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
@@ -73,8 +87,8 @@
 			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
 			</div>
 		</div>
+	<script src="main.js"> </script>
 	<script src="cadastros.js"></script>
-    <script src="main.js"> </script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

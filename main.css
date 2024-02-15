@@ -95,17 +95,19 @@ body {
 .form-group input[type="date"],
 .form-group input[type="tel"],
 .form-group input[type="email"],
-.form-group input[type="inactive"]{
+.form-group input[type="inactive"],
+.form-group input[type="number"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
 .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d8d8d8;
-    border-radius: 3px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .submit-button {
@@ -193,7 +195,8 @@ input[readonly] {
 
 .form-group input[type="text"]:focus,
 .form-group input[type="date"]:focus,
-.form-group input[type="tel"]:focus {
+.form-group input[type="tel"]:focus,
+.form-group input[type="number"]:focus {
 background-color: #e0e0e0;
 transition: background-color 0.3s ease;
 }
