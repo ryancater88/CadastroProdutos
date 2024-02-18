@@ -1,3 +1,44 @@
+.itemGrid button{
+  background-color: #db0707;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  transition: 300ms;
+}
+
+.itemGrid button:active{
+  background-color: #850404;
+  color: #fff;
+ }
+
+.itemGrid{
+  display: flex;
+  background-color: #fff;
+  border: #4b4b4b solid 1px;
+  list-style-type: none;
+  font-style: normal;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  margin: 6px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  font-size: small;
+}
+
+.gridReserva{
+  width: 100%;
+  min-height: 120px;
+  max-height: 200px;
+  border: 1px solid #212529;
+  padding: 10px;
+  background-color: #fafafa;
+  overflow-y: auto;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #bdbaba;
@@ -370,14 +411,6 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   position: relative;
   top:100%;
   margin-top: 884px;
-}
-
-.modal{
-  z-index: 2;
-}
-
-.modal-backdrop{
-  z-index: 1;
 }
 
 .list-group{

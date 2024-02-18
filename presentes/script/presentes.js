@@ -4,6 +4,7 @@ let paginaAtual = 1
 let paginasTotais = 0
 let lista = null
 
+
 setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50);
 
 const dropMenuOpt = document.querySelector('#qualLista');
@@ -71,8 +72,6 @@ fetch(apiLink, configuracao)
 
 function listarItens(item){
    item.forEach(elemento => {contrutorListaPresente(elemento)})
-
-
 
 }
 
@@ -146,8 +145,8 @@ function buscarById(id){
       return response.json();
     })
     .then(data => {
-      mostrarModalDados('Produto', data);
-      itemEscolhido = data
+      itemEscolhido = data;
+      mostrarModalDados();
       loading('ocultar')
     })
     .catch(error => {
@@ -160,168 +159,38 @@ function buscarById(id){
 
 //Construindo modal de dados
 
-function mostrarModalDados(titulo, dados) {
+function mostrarModalDados() {
     const modal = new bootstrap.Modal(document.getElementById('modalDados'));
-    limparModal();
-
-    const convidado = dados.Convidado;
-    const data = dados.Datahora;
-    const descricao = dados.Descricao;
-    const email = dados.Email;
-    const id = dados.Id;
-    const link = dados.Link;
-    const linkimg = dados.Linkimg;
-    const situacao = dados.Situacao;
-
-
-    // Atualiza o título e o corpo do modal
-    document.getElementById('modalDadosLabel').textContent = titulo;
+    const nomeProduto = document.getElementById('inputproduto');
+    const inputLink = document.getElementById('inputLink');
+    const inputLinkimg = document.getElementById('inputLinkimg');
+    const inputSituacao = document.getElementById('inputSituacao');
+    const qtdDisponivel = document.getElementById('inputQtd');
+    const gridReserva = document.getElementById('gridReserva');
+    limparGrid();
    
-     var dadosModal = document.getElementById('modalDadosBody');
-//------------------------------Div da lista de campos----------------------------------
-     var divProdutosList = document.createElement('div')
-        divProdutosList.className = 'produto-modal'
-   
-//------------------------------Campo Nome do Produto----------------------------------
-     var divProduto = document.createElement('div')
-        divProduto.id = 'nomeproduto'
-        
-     var labelProduto = document.createElement('label')
-        labelProduto.textContent = "Nome do Produto:";
-        labelProduto.setAttribute('for', 'inputproduto');
-        labelProduto.className = 'produto-modal-label'
-        
-     var inputProduto = document.createElement('input');
-        inputProduto.id = 'inputproduto';
-        inputProduto.name = 'Produto';
-        inputProduto.required = true;
-        inputProduto.className = 'produto-modal-input';
-        inputProduto.setAttribute('maxlength', 50)
-        if(descricao) inputProduto.value = descricao;
+    nomeProduto.value = itemEscolhido.Dados.Nomeproduto;
+    inputLink.value = itemEscolhido.Dados.Linkproduto;
+    inputLinkimg.value = itemEscolhido.Dados.Linkimagem;
+    inputSituacao.selectedIndex = itemEscolhido.Dados.Situacao;
+    qtdDisponivel.value = itemEscolhido.Dados.Qtd_disponivel;
+    listaReservas = itemEscolhido.Dados.Reservas;
 
-        divProduto.append(labelProduto, inputProduto);
-        divProdutosList.appendChild(divProduto);
-//------------------------------Campo Link----------------------------------
+    listaReservas.forEach(convidadoReserva => {
+      var htmlInserir = `<li id=${convidadoReserva.Idreserva} class="itemGrid">
+      <span class="itemColumn" nome><b>Convidado</b>: ${convidadoReserva.Nomeconvidado}</span>
+      <button onclick=excluirReserva(${convidadoReserva.Idreserva})>Excluir</button>
+    </li>`
 
-      var divLink = document.createElement('div')
-       divLink.id = 'link'
+      gridReserva.insertAdjacentHTML('beforeend', htmlInserir)
+    })
 
-      var labelLink = document.createElement('label')
-        labelLink.textContent = "Link:";
-        labelLink.setAttribute('for', 'inputLink');
-        labelLink.className = 'produto-modal-label'
-
-      var inputLink = document.createElement('input');
-        inputLink.id = 'inputLink';
-        inputLink.name = 'Link';
-        inputLink.required = true;
-        inputLink.className = 'produto-modal-input';
-        inputLink.setAttribute('maxlength', 1000)
-       if(link) inputLink.value = link;
-
-       divLink.append(labelLink, inputLink);
-       divProdutosList.appendChild(divLink);
-
-//------------------------------Campo Linkimg----------------------------------
-    
-      var divLinkimg = document.createElement('div')
-       divLinkimg.id = 'Linkimg'
-
-      var labelLinkimg = document.createElement('label')
-        labelLinkimg.textContent = "Link da Imagem:";
-        labelLinkimg.setAttribute('for', 'inputLinkimg');
-        labelLinkimg.className = 'produto-modal-label'
-
-      var inputLinkimg = document.createElement('input');
-        inputLinkimg.id = 'inputLinkimg';
-        inputLinkimg.name = 'Linkimg';
-        inputLinkimg.required = true;
-        inputLinkimg.className = 'produto-modal-input';
-        inputLinkimg.setAttribute('maxlength', 1000)
-       if(linkimg) inputLinkimg.value = linkimg;
-
-       divLinkimg.append(labelLinkimg, inputLinkimg);
-       divProdutosList.appendChild(divLinkimg);
-
-
-//------------------------------Campo Convidado----------------------------------
-     var divConvidado = document.createElement('div')
-       divConvidado.id = 'Convidado'
-
-      var labelConvidado = document.createElement('label')
-        labelConvidado.textContent = "Convidado:";
-        labelConvidado.setAttribute('for', 'inputConvidado');
-        labelConvidado.className = 'produto-modal-label'
-
-      var inputConvidado = document.createElement('input');
-        inputConvidado.id = 'inputConvidado';
-        inputConvidado.name = 'Convidado';
-        inputConvidado.className = 'produto-modal-input';
-        inputConvidado.setAttribute('maxlength', 50)
-       if(convidado) inputConvidado.value = convidado;
-
-       divConvidado.append(labelConvidado, inputConvidado);
-       divProdutosList.appendChild(divConvidado);
-
-//------------------------------Campo Email----------------------------------
-      var divEmail = document.createElement('div')
-       divEmail.id = 'Email'
-
-      var labelEmail = document.createElement('label')
-        labelEmail.textContent = "Email:";
-        labelEmail.setAttribute('for', 'inputEmail');
-        labelEmail.className = 'produto-modal-label'
-
-      var inputEmail = document.createElement('input');
-        inputEmail.id = 'inputEmail';
-        inputEmail.name = 'Email';
-        inputEmail.className = 'produto-modal-input';
-        inputEmail.setAttribute('maxlength', 50)
-       if(email) inputEmail.value = email;
-
-       divEmail.append(labelEmail, inputEmail);
-       divProdutosList.appendChild(divEmail);
-
-//------------------------------Campo Situacao----------------------------------
-      var divSituacao = document.createElement('div')
-       divSituacao.id = 'Situacao'
-
-      var labelSituacao = document.createElement('label')
-        labelSituacao.textContent = "Situacao:";
-        labelSituacao.setAttribute('for', 'inputSituacao');
-        labelSituacao.className = 'produto-modal-label'
-
-      var selectSituacao = document.createElement('select');
-        selectSituacao.id = 'inputSituacao';
-        selectSituacao.op
-      
-      var opt1 = document.createElement('option');
-        opt1.value = 1;
-        opt1.textContent = 'Reservado';
-      
-      var opt2 = document.createElement('option')
-        opt2.value = 0;
-        opt2.textContent = 'Não-reservado';
-      
-        selectSituacao.append(opt1, opt2);
-        selectSituacao.value = situacao
-
-
-       divSituacao.append(labelSituacao, selectSituacao);
-       divProdutosList.appendChild(divSituacao);
-
-     dadosModal.appendChild(divProdutosList);
-  
     modal.show();
   };
 //---------------------------------------------------------------
-function limparModal(){
-  var dadosModal =  document.querySelector('#modalDadosBody').childNodes[3];
-
-  if(dadosModal){
-    dadosModal.remove()
-  }
-  
+function limparGrid(){
+  var dadosGridReserva =  document.querySelector('#gridReserva')
+    dadosGridReserva.innerHTML = ''
 };
 
 //---------------------------------------------------------------
@@ -422,31 +291,25 @@ function limparListaPresentes(){
 //------------------------------Função do botão salvar----------------------------------
 
 function alterarProduto(){
-  fecharModal();
   loading('exibir');
+    const idProduto = itemEscolhido.Dados.Idproduto;
+    const nomeProduto = document.getElementById('inputproduto').value;
+    const inputLink = document.getElementById('inputLink').value;
+    const inputLinkimg = document.getElementById('inputLinkimg').value;
+    const inputSituacao = document.getElementById('inputSituacao').value;
+    const qtdDisponivel = document.getElementById('inputQtd').value;
 
-  
-  const id = itemEscolhido.Id
-  const descricao = document.querySelector('#inputproduto').value;
-  const link = document.querySelector('#inputLink').value;
-  const linkimg = document.querySelector('#inputLinkimg').value;
-  const convidado = document.querySelector('#inputConvidado').value;
-  const email = document.querySelector('#inputEmail').value;
-  const situacao = document.querySelector('#inputSituacao').value;
-
-
-if(id && descricao && link && linkimg){
+if(idProduto && nomeProduto && inputLink && inputLinkimg){
   
   const endpoint = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=alterar&local=${lista}&${new Date().getTime()}`
 
   const body = {
-    "Id":id,
-    "Descricao":descricao,
-    "Link":link,
-    "Linkimg":linkimg,
-    "Situacao":situacao,
-    "Convidado":convidado,
-    "Email":email
+    "Id":idProduto,
+    "Descricao":nomeProduto,
+    "Link":inputLink,
+    "Linkimg":inputLinkimg,
+    "Situacao":inputSituacao,
+    "QtdMax":qtdDisponivel
 };
 
   const configuracao =  {
@@ -464,9 +327,16 @@ fetch(endpoint, configuracao)
       return response.json();
     })
     .then(data => {
-      limparModal();
-      mostrarModal('Sucesso', "Alteração bem Sucedida;")
+      if(data.Status == 200){
+      fecharModal();
+      limparGrid();
+      mostrarModal('Sucesso', data.Mensagem)
       loading('ocultar')
+      }
+      else{
+        mostrarModal('Erro', data.Mensagem)
+        loading('ocultar')
+      }; 
 
     })
     .catch(error => {
@@ -521,6 +391,62 @@ function excluirProduto(id) {
             .then(data => {
               mostrarModal('Sucesso', "Exclusão bem Sucedida")
               loading('ocultar');
+            })
+            .catch(error => {
+              console.error('Erro durante a requisição:', error);
+              loading('ocultar');
+              mostrarModal('Erro', 'Erro durante a requisição')
+            });
+        } else {
+          mostrarModal('Erro', `Id não enviado na requisição`)
+          loading('ocultar');
+        }
+      } else {
+        loading('ocultar');
+      }
+    });
+}
+
+function excluirReserva(id) {
+  mostrarModalConfirmacaoExclusao()
+    .then((confirmado) => {
+      if (confirmado) {
+        if (id) {
+          loading('exibir');
+          const endpoint = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=excluirReserva&local=${lista}&${new Date().getTime()}` + new Date().getTime();
+
+          const body = {
+            "Id": id,
+          };
+
+          const configuracao = {
+            method: 'POST',
+            body: JSON.stringify(body),
+          };
+
+          fetch(endpoint, configuracao)
+            .then(response => {
+              if (!response.ok) {
+                loading('Ocultar');
+                mostrarModal('Erro', 'Erro na requisição');
+                throw new Error(`Erro na requisição: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              if(data.Status == 200){
+              document.querySelector(`.itemGrid[id="${id}"]`).remove();
+              mostrarModal('Sucesso', "Exclusão bem Sucedida");
+              loading('ocultar');
+              }
+              else if(data.Status == 400){
+                mostrarModal('Erro', data.Mensagem)
+                loading('ocultar');
+              }
+              else{
+                mostrarModal('Erro', 'Erro interno do servidor')
+                loading('ocultar');
+              }
             })
             .catch(error => {
               console.error('Erro durante a requisição:', error);
