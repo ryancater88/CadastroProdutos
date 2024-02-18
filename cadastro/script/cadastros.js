@@ -40,18 +40,18 @@ function cadastrarProduto(){
         if(data.Status == 200){
             limparInputs();
             loading('ocultar');
-            mostrarModal('Cadastro Realizado com Sucesso', 'Seu cadastro foi realizado com sucesso!');
+            rModalAbrir('Cadastro Realizado com Sucesso', 'Seu cadastro foi realizado com sucesso!');
         }
         else{
             loading('ocultar');
-            mostrarModal('Erro no Cadastro', data.Mensagem);
+            rModalAbrir('Erro no Cadastro', data.Mensagem);
         }
        ;
       })
       .catch(error => {
         // Lidando com erros durante a requisição
         loading('ocultar');
-        mostrarModal('Erro', 'Servidor Indisponível')
+        rModalAbrir('Erro', 'Servidor Indisponível')
         console.error('Erro durante a requisição:', error);
       });
         
@@ -78,19 +78,3 @@ function loading(acao){
             document.querySelector('#selectLista').options.selectedIndex = 0;  
         }
     };
-    
-    function mostrarModal(titulo, mensagem) {
-        var modal = new bootstrap.Modal(document.getElementById('universalModal'));
-        
-        // Atualiza o título e o corpo do modal
-        document.getElementById('universalModalLabel').textContent = titulo;
-        document.getElementById('universalModalBody').textContent = mensagem;
-      
-        // Exibe o modal
-        modal.show();
-      };
-
-    function limparModal(){
-      //limpar dados de modal anterior
-      document.querySelector('#universalModalBody').childNodes[3].remove()
-};

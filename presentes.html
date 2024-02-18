@@ -7,6 +7,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="./main/style/main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="./rcomponent/style/main.css">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,54 +34,6 @@
 			</div>
 		</nav>
 	</header>		
-	<div class="modal fade modalDados" id="modalDados" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-header">
-			<h5 class="modal-title" id="modalDadosLabel">Dados do presente</h5>
-			<button type="button" id="dadosFechar" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body" id="modalDadosBody">
-				<div class="produto-modal">
-					<div id="nomeproduto">
-						<label for="inputproduto" class="produto-modal-label">Nome do Produto:</label>
-						<input id="inputproduto" name="Produto" required class="produto-modal-input" maxlength="50">
-					</div>
-					<div id="link">
-						<label for="inputLink" class="produto-modal-label">Link:</label>
-						<input id="inputLink" name="Link" required class="produto-modal-input" maxlength="1000">
-					</div>
-					<div id="Linkimg">
-						<label for="inputLinkimg" class="produto-modal-label">Link da Imagem:</label>
-						<input id="inputLinkimg" name="Linkimg" required class="produto-modal-input" maxlength="1000">
-					</div>
-					<div id="qtd">
-						<label for="inputQtd" class="produto-modal-label">Quantidade Disponível:</label>
-						<input type="number" id="inputQtd" name="Qtd" required class="produto-modal-input" max="50" min="1" maxlength="3">
-					</div>
-					<div id="Situacao">
-						<label for="inputSituacao" class="produto-modal-label">Situacao:</label>
-						<select id="inputSituacao">
-							<option value="0">Não-reservado</option>
-							<option value="1">Reservado</option>
-							<option value="2" hidden selected>Selecione</option>
-						</select>
-					</div>
-					<div id="containerReserva">
-						<label for="gridReserva" class="produto-modal-label">Reservas:</label>
-						<div id="gridReserva" class="gridReserva">
-							<!-- Dados da grid-->
-							
-						</div>						
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" id="modal-cancelar" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-				<button type="button" id="modal-salvar" class="btn btn-primary" onclick="alterarProduto()">Salvar</button>
-			</div>
-			</div>
-		</div>
 	</div>
 	<div class="modal fade modalMensagem" id="universalModal" tabindex="-1" aria-labelledby="universalModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -116,17 +69,6 @@
 			</div>
 		</div>
 	</div>
-			<!-- overlay para bloquear os elementos atrás da camada principal -->
-			<div id="overlay"></div>
-			<!-- Carregamento-->
-			<div class="sk-chase" id="loading">
-				<div class="sk-chase-dot"></div>
-				<div class="sk-chase-dot"></div>
-				<div class="sk-chase-dot"></div>
-				<div class="sk-chase-dot"></div>
-				<div class="sk-chase-dot"></div>
-				<div class="sk-chase-dot"></div>
-			</div>
 	<div class="body-lista" id="presentes-container">		
 		<p class="container-header">Lista de Presentes </p>
 		<select id="qualLista" name="qualLista">
@@ -144,8 +86,20 @@
 			<button id="nextBtn" onclick="atualizarPaginacao('proxima')">Próximo</button>
 		</div>
 	</div>
+		<!-- overlay para bloquear os elementos atrás da camada principal -->
+		<div id="overlay" style="z-index: 1;">
+			<div class="sk-chase" id="loading">
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+			</div>
+		</div>
 	<script src="./main/script/main.js"></script>
 	<script src="./presentes/script/presentes.js"> </script>
+	<script src="./rcomponent/script/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

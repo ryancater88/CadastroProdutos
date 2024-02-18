@@ -50,26 +50,28 @@ body {
   overflow: hidden;
 }
 
-.body-lista{
-    margin: 0 auto;
-    margin-top: 10px;
-    position: absolute;
-    width: 50%;
-    left: 50%;
-    transform: translate(-50%);
-    padding: 26px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: -1;
-    min-width: 337px;
-    max-width: 500px;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    min-height: 666px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.body-lista {
+  margin: 0 auto;
+  margin-top: 10px;
+  position: fixed;
+  width: 50%;
+  left: 50%;
+  top: 55px; 
+  transform: translate(-50%);
+  padding: 26px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+  min-width: 337px;
+  max-width: 500px;
+  max-height: 550px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  min-height: 666px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #qualLista {
@@ -90,7 +92,6 @@ body {
 
 .navbar{
   display: block;
-  z-index: 2;
 }
 
 .body-cadastro{
@@ -266,8 +267,6 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   background-color: rgba(0, 0, 0, 0.7); /* Cor escura do overlay */
   justify-content: center;
   align-items: center;
-  z-index: 1002;
-  
 }
 
 .mensagemVermelha{
@@ -283,7 +282,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
 
 #presentes-container .list-group-item {
   
-  margin-bottom: 10px;
+   margin-bottom: 10px;
     border: 1px solid #979797;
     padding: 10px;
     border-radius: 10px;
@@ -376,7 +375,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin: 10px;
 }
 
 .pagination button {
@@ -413,7 +412,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   margin-top: 884px;
 }
 
-.list-group{
+.list-group {
   display: flex;
   flex-direction: column;
   padding-left: 0;
@@ -423,4 +422,5 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   background-color: #e5e5e5;
   border: 1px solid #4b4b4b;
   padding: 13px;
-};
+  overflow-x: auto;
+}
