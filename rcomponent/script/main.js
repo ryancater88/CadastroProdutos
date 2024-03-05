@@ -1,6 +1,17 @@
+var listaDeModaisAbertos = [];
+
+
 function rModalFechar(idModal){
  document.querySelector(`.rmodal-overlay[id="${idModal}"]`).remove();
 }
+
+function rModalFechar__Atalho(){
+	if(listaDeModaisAbertos != ''){
+		document.querySelector(`.rmodal-overlay[id="${listaDeModaisAbertos[listaDeModaisAbertos.length - 1]}"]`).remove();
+		listaDeModaisAbertos.pop()
+	}
+}
+	
 
 function rModalAbrir(title, bodycontent, havePrimaryButton){
     const page = document.querySelector('body');
@@ -37,6 +48,7 @@ function rModalAbrir(title, bodycontent, havePrimaryButton){
     const buttonClose = document.querySelector(`.rmodal-closebutton[id="${numeroIntervalo}"]`);
 	const buttonPrimary = document.querySelector(`.rmodal-primarybutton[id="${numeroIntervalo}"]`);
     const buttonSecondary = document.querySelector(`.rmodal-secondarybutton[id="${numeroIntervalo}"]`);
+	listaDeModaisAbertos.push(numeroIntervalo);
 
 	if(!havePrimaryButton){
 		buttonPrimary.remove();

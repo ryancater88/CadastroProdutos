@@ -20,7 +20,6 @@ document.querySelector('#btn-search').addEventListener('click', () => {
   }
   
   buscarListaDePresentes(paginaAtual, lista);
-  limparListaPresentes();
 })
 
 
@@ -30,6 +29,7 @@ let listaDePresentes = [];
 
 function buscarListaDePresentes(page, lista) {
    loading('exibir');
+   limparListaPresentes();
    
     var apiLink = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscar&local=${lista}&${new Date().getTime()}`
     var body = {
@@ -315,7 +315,7 @@ function limparListaPresentes(){
 //------------------------------Função do botão salvar----------------------------------
 
 function alterarProduto(){
-  loading('exibir');
+   loading('exibir');
     const idProduto = itemEscolhido.Dados.Idproduto;
     const nomeProduto = document.getElementById('inputproduto').value;
     const inputLink = document.getElementById('inputLink').value;
@@ -352,6 +352,7 @@ fetch(endpoint, configuracao)
     })
     .then(data => {
       if(data.Status == 200){
+      buscarListaDePresentes(paginaAtual, lista)
       rModalAbrir('Sucesso', data.Mensagem)
       loading('ocultar')
       }

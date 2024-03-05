@@ -16,19 +16,32 @@ for(let i = 0; i < listaCamposSelecionaveis.length; i++){
     listaCamposSelecionaveis[i].addEventListener('keydown', (e) => {teclaPressionada(e, idCampo)})
     }
 
+    //Definir Atalhos
+
+    document.addEventListener('keydown', (e) => {teclaPressionada(e)})
+
     function teclaPressionada(e, idCampo) {
         var tecla = e.key;
-        var tabIndex = document.querySelector(`#${idCampo}`).tabIndex
+        switch(tecla){
+            case 'Enter':
+                diretivaTabindex(e, idCampo) ;
+                break
+            case 'Escape' :
+                if(idUltimoModalAberto =! '')
+                {rModalFechar__Atalho()};
+                break   
+        }
+    }
+
+    function diretivaTabindex(e, idCampo){
+        var tabIndex = idCampo ? document.querySelector(`#${idCampo}`).tabIndex : false;
         var proximoCampo = document.querySelector(`[tabIndex="${tabIndex + 1}"]`)
         
-        if(tecla == 'Enter'){
-          const campoSelecionado = document.getElementById(idCampo);
-            if(campoSelecionado.nodeName == 'INPUT'){
+          const campoSelecionado = idCampo ? document.getElementById(idCampo): false;
+            if(campoSelecionado.nodeName == ('INPUT' || 'SELECT')){
                 e.preventDefault();
-                proximoCampo.focus()
+                proximoCampo.focus();
             }    
-        }
-    
     }
  
     var contadorCamposEmBranco = 0
