@@ -70,14 +70,34 @@
 		</div>
 	</div>
 	<div class="body-lista" id="presentes-container">		
-		<p class="container-header">Lista de Presentes </p>
-		<select id="qualLista" name="qualLista">
-			<option class="optLista" disabled selected hidden>Selecione</option>
-			<option class="optLista" value="1">Padrinhos</option>
-			<option class="optLista" value="2">Convidados</option>
-			<option class="optLista" value="3">Chá</option>
-			<option class="optLista" value="4">beta</option>
-		</select>
+		<header class="body-lista__header">
+			<p class="title-header lista_header_item">Lista de Presentes </p>
+			<select id="qualLista" class="lista_header_item" name="qualLista">
+				<option class="optLista" disabled selected hidden>Selecione</option>
+				<option class="optLista" value="1">Padrinhos</option>
+				<option class="optLista" value="2">Convidados</option>
+				<option class="optLista" value="3">Chá</option>
+				<option class="optLista" value="4">beta</option>
+			</select>
+			<div class="lista_header_item filter" id="filter-list">
+				<div id="descricao-produto-group">
+					<label for="descricao_produto">Nome Produto:</label>
+					<input type="text" id="descicao_produto" name="descricao_produto" maxlength="30">
+				</div>
+				<div id="reserva-group">
+					<label for="reservado_produto">Reservado:</label>
+					<div class="lista__radio-group">
+						<label for="reservado_produto">Sim:</label>
+						<input class="radio-input" id="sim_reservado" name="reserva" type="radio" value="1">
+						<label for="reservado_produto">Não:</label>
+						<input class="radio-input" id="nao_reservado" name="reserva" type="radio" value="0">
+					</div>
+				</div>
+				<div class="btn-filtrar-group">
+					<button class="btn-buscar" id="btn-search">Buscar</button>
+				</div>
+			</div>
+		</header>
 		<div class="list-group" id="listapresente">
 		</div>
 		<div class="pagination">

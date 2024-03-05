@@ -3,17 +3,26 @@
 let paginaAtual = 1
 let paginasTotais = 0
 let lista = null
+let descricao = null
+let reservado = null
 
 
 setTimeout(() =>{document.getElementById('presentes-container').classList.add("show-container");}, 50);
 
-const dropMenuOpt = document.querySelector('#qualLista');
-      dropMenuOpt.addEventListener('change', () => {
-        lista = dropMenuOpt.value; 
-        if(paginaAtual > 1)paginaAtual = 1;
-        buscarListaDePresentes(paginaAtual, dropMenuOpt.value); 
-        limparListaPresentes()
-      });
+document.querySelector('#btn-search').addEventListener('click', () => {
+  lista = document.querySelector('#qualLista').selectedIndex.valueOf();
+  descricao = document.querySelector('#descicao_produto').value;
+  document.querySelectorAll('input[name="reserva"]').forEach(input => {if (input.checked){reservado = input.value}});
+
+  if(lista == 0){
+    rModalAbrir('Erro', 'Selecione uma lista');
+    return;
+  }
+  
+  buscarListaDePresentes(paginaAtual, lista);
+  limparListaPresentes();
+})
+
 
 // Função para buscar a lista de presentes ao abrir a página
 let listaDePresentes = [];
@@ -25,7 +34,11 @@ function buscarListaDePresentes(page, lista) {
     var apiLink = `https://script.google.com/macros/s/AKfycbwAalhIoCgV2HRVLf1VeKvYCzihXhGGS4fi3CMi_WyUXZQecIvIfG31sqt5eJRzcEOz/exec?path=buscar&local=${lista}&${new Date().getTime()}`
     var body = {
         'Page':`${page}`,
-        'Pagelength':'10'
+        'Pagelength':'10',
+        "Filtro": {
+          "Descricao": descricao,
+          "Reservado": reservado
+        }
       }
     
 const configuracao = {
@@ -358,10 +371,10 @@ fetch(endpoint, configuracao)
 else{
   let campoBranco = []
 
-  if(id == ""){campoBranco.push("Id")};
-  if(descricao == ""){campoBranco.push("Descricão")};
-  if(link == ""){campoBranco.push("Link")};
-  if(linkimg == ""){campoBranco.push("Link Img")};
+  if(idProduto == ""){campoBranco.push("Id")};
+  if(nomeProduto == ""){campoBranco.push("Descricão")};
+  if(inputLink == ""){campoBranco.push("Link")};
+  if(inputLinkimg == ""){campoBranco.push("Link Img")};
 
   console.log(campoBranco)
 
