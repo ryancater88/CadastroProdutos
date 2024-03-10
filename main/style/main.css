@@ -1,3 +1,8 @@
+header{
+  z-index: 1;
+  position: relative;
+}
+
 .btn-filtrar-group{
   display: flex;
   width: 90%;
@@ -152,7 +157,7 @@ body {
   display: block;
 }
 
-.body-cadastro{
+.body-cadastro {
   margin: 0 auto;
   position: absolute;
   width: 90%;
@@ -163,7 +168,6 @@ body {
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: -1;
   max-width: 450px;
   opacity: 0;
   transition: opacity 1s ease-in-out;
@@ -239,7 +243,7 @@ input[readonly] {
   display: none;
   text-align: center;
   line-height: 200px;
-  z-index: 11;
+  z-index: 3;
 }
 
 
@@ -324,6 +328,7 @@ background-color: #0056b3; /* Nova cor quando o botão é pressionado */
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7); /* Cor escura do overlay */
   justify-content: center;
+  z-index: 2;
   align-items: center;
 }
 
